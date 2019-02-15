@@ -5,11 +5,11 @@ import roman.kai.nasagallery.BuildConfig
 
 object ApiConstants {
 
-    private const val BASE_URL = " https://api.nasa.gov/mars-photos/api/v1/"
+    private const val BASE_URL = " https://api.nasa.gov"
 
-    val ENDPOINT by lazy { getEndpoint() }
+    val SERVER by lazy { getServer() }
 
-    @JvmStatic fun getEndpoint(): String {
+    @JvmStatic fun getServer(): String {
         return when(BuildConfig.BUILD_TYPE) {
             "debug" -> BASE_URL
             else -> BASE_URL
@@ -20,5 +20,6 @@ object ApiConstants {
      * Api endpoints
      */
 
-    const val PHOTOS = "rovers/{rover_id}/photos?sol=1900&camera=NAVCAM"
+    const val PHOTOS = "/mars-photos/api/v1/rovers/{rover_id}/photos?sol=1000&camera=NAVCAM"
+    const val MAIN_PHOTO = "/planetary/apod"
 }

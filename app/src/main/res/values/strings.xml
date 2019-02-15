@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">NasaGallery</string>
+    <string name="app_name">Nasa Gallery</string>
     <string name="title_home">Home</string>
     <string name="title_spirit">Spirit</string>
     <string name="title_curiosity">Curiosity</string>
+    <string name="photo_of_the_day">Photo of the day</string>
+
+    <string name="next">Next</string>
 </resources>

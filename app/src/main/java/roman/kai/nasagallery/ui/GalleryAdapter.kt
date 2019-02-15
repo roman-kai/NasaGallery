@@ -13,7 +13,9 @@ import roman.kai.nasagallery.ui.base.SimpleViewHolder
 /**
  * Created by Roman K. on 13/02/2019
  */
-class GalleryAdapter(val items: List<PhotosItem>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+class GalleryAdapter : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+
+    var items: List<PhotosItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         return GalleryViewHolder(parent)
@@ -25,6 +27,11 @@ class GalleryAdapter(val items: List<PhotosItem>) : RecyclerView.Adapter<Gallery
         holder.bind(items[position])
     }
 
+    fun swapData(items: List<PhotosItem>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
+
     /**
      * Holder
      */
@@ -32,11 +39,11 @@ class GalleryAdapter(val items: List<PhotosItem>) : RecyclerView.Adapter<Gallery
 
         var model: PhotosItem? = null
 
-
         fun bind(model: PhotosItem) {
             this.model = model
 
             Glide.with(itemView.context).load(model.imgSrc).centerCrop().into(itemView.ivPhoto)
+            itemView.tvInfo.text = model.earthDate
         }
     }
 

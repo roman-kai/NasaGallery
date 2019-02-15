@@ -23,7 +23,7 @@ object Api {
 
     private fun buildApi(): ApiInterface {
         return Retrofit.Builder()
-                .baseUrl(ApiConstants.ENDPOINT)
+                .baseUrl(ApiConstants.SERVER)
                 .addConverterFactory(GsonConverterFactory.create(Gson()))
                 .client(buildOkHttpClient())
                 .build()

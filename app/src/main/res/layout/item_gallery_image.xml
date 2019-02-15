@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/image_background"
+                android:padding="0.5dp">
 
-    <ImageView
+    <roman.kai.nasagallery.ui.base.SquareImageView
             android:id="@+id/ivPhoto"
             android:layout_width="match_parent"
             android:layout_height="100dp"/>
 
-    <View android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_below="@+id/ivPhoto"
-    android:background="@color/colorPrimary"/>
-
+    <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivPhoto"
+            android:text="..."
+            android:background="@color/white_transparent"
+            android:padding="@dimen/gallery_item_text_padding"
+            android:layout_margin="@dimen/gallery_item_text_margin"/>
 
 </RelativeLayout>

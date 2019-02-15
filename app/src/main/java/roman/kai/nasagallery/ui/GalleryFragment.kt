@@ -1,14 +1,17 @@
 package roman.kai.nasagallery.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_gallery.*
+import kotlinx.android.synthetic.main.part_progress_bar.*
 import roman.kai.nasagallery.R
 import roman.kai.nasagallery.data.api.model.PhotosItem
+import roman.kai.nasagallery.ui.base.*
 import roman.kai.nasagallery.ui.mvp.GalleryPresenter
 import roman.kai.nasagallery.ui.mvp.GalleryView
 
@@ -33,6 +36,9 @@ class GalleryFragment: Fragment(), GalleryView {
     }
 
     val presenter = GalleryPresenter()
+    var spanCount = 2
+    var adapter = GalleryAdapter()
+
     lateinit var roverId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,18 +54,36 @@ class GalleryFragment: Fragment(), GalleryView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            3
+        } else {
+            2
+        }
+        rvPhotos.layoutManager = GridLayoutManager(context, spanCount)
+        rvPhotos.addItemDecoration(GridSpaceDecoration(context!!.dpToPx(1f), spanCount))
+        rvPhotos.adapter = adapter
+
         presenter.attachView(this)
         presenter.loadPhotos(roverId)
+        showProgress()
         tvTest.text = roverId
     }
 
     override fun photosLoaded(photos: List<PhotosItem>) {
-        // todo don't recreate everything
-        rvPhotos.layoutManager = LinearLayoutManager(context)
-        rvPhotos.adapter = GalleryAdapter(photos)
+        hideProgress()
+        adapter.swapData(photos)
     }
 
     override fun showLoadingError() {
-        // todo show toast or empty view
+        context?.showToast("Loading error. Sorry ;(")
+        hideProgress()
+    }
+
+    private fun showProgress() {
+        progress.setVisible(true)
+    }
+
+    private fun hideProgress() {
+        progress.setVisible(false)
     }
 }
